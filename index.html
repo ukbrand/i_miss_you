@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>I Miss You, Sakudi ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Container holding all website content */
+    #mainContent {
+      filter: blur(5px);
+      opacity: 0.7;
+      transition: filter 0.5s ease, opacity 0.5s ease;
+      pointer-events: none; /* prevent interaction while blurred */
+    }
+    #mainContent.active {
+      filter: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    nav {
+      background: #0ff;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 0 20px #0ff;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    nav a {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+
+    p {
+      font-size: 1em;
+      color: #ccc;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 10px #0ff;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .couple-photo {
+      margin-top: 20px;
+    }
+
+    .couple-photo img {
+      width: 180px;
+      border-radius: 20px;
+      border: 3px solid #f0f;
+      box-shadow: 0 0 20px #f0f;
+    }
+
+    .game-area {
+      position: relative;
+      height: 200px;
+      margin-top: 30px;
+      border: 2px dashed #0ff;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.5em;
+      cursor: pointer;
+      animation: floatHeart 6s linear infinite;
+      color: #f0f;
+      text-shadow: 0 0 10px #f0f;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        bottom: 0;
+        left: calc(10% + 80% * var(--random));
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+      }
+    }
+
+    #score {
+      font-size: 1em;
+      margin-top: 10px;
+      color: #0ff;
+    }
+
+    #finalMessage {
+      display: none;
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #0ff;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    .quote {
+      margin-top: 30px;
+      font-size: 1.1em;
+      color: #f0f;
+      font-style: italic;
+      text-shadow: 0 0 8px #f0f;
+    }
+
+    /* Play Button Overlay */
+    #playOverlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      flex-direction: column;
+      backdrop-filter: blur(6px);
+      user-select: none;
+      transition: opacity 0.5s ease;
+    }
+    #playOverlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #playButton {
+      font-size: 1.8em;
+      padding: 20px 50px;
+      cursor: pointer;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #0ff, #f0f);
+      color: #000;
+      font-weight: bold;
+      box-shadow: 0 0 20px #0ff, 0 0 40px #f0f;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+      user-select: none;
+    }
+    #playButton:hover {
+      background: linear-gradient(135deg, #f0f, #0ff);
+      color: #fff;
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #f0f, 0 0 50px #0ff;
+    }
+    #playButton:active {
+      transform: scale(0.95);
+    }
+
+    @media (min-width: 600px) {
+      nav a {
+        font-size: 1.2em;
+        margin: 0 15px;
+      }
+      h1 {
+        font-size: 3em;
+      }
+      .gallery img {
+        width: 100px;
+        height: 100px;
+      }
+      .couple-photo img {
+        width: 250px;
+      }
+      .game-area {
+        height: 300px;
+      }
+    }
+   .gallery img{
+
+      object-fit: contain;
+    }
+    .overlay{
+      background-image: url("3.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay">
+  <!-- Play Music Overlay -->
+
+  <div id="playOverlay">
+    <button id="playButton" aria-label="Play Music">▶️ Play Music</button>
+  </div>
+
+  <!-- Main Website Content -->
+  <div id="mainContent">
+    <nav>
+      <a href="#">Home</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#game">Game</a>
+      <a href="#quote">Quote</a>
+    </nav>
+
+    <div class="container">
+      <h1>I Miss You, Sakudi ❤️</h1>
+      <p>These memories remind me how much I miss you every single day.</p>
+
+      <!-- Image Gallery -->
+      <div class="gallery" id="gallery">
+        <img src="5.jpeg" alt="" />
+        <img src="2.jpg" alt="" />
+        <img src="3.jpg" alt="" />
+        <img src="4.jpg" alt="" />
+        <img src="15.jpeg" alt="" />
+        <img src="6.jpeg" alt="" />
+        <img src="7.jpeg" alt="" />
+        <img src="8.jpeg" alt="" />
+        <img src="9.jpeg" alt="" />
+        <img src="10.jpeg" alt="" />
+      </div>
+
+      <!-- Couple Photo -->
+      <div class="couple-photo">
+        <img src="1.jpg" alt="Us ❤️" />
+      </div>
+
+      <!-- Game Area -->
+      <div class="game-area" id="game"></div>
+      <div id="score">
+        Hearts caught: <span id="scoreCount">0</span>/10
+      </div>
+      <div id="finalMessage">
+        You caught my heart 💖! I miss you, Sakudi 
+      </div>
+
+      <!-- Cute Quote -->
+      <div class="quote" id="quote">
+        "Missing you comes in waves, and tonight I'm drowning." – Yours Forever
+        💌
+      </div>
+    </div>
+
+    <!-- Hidden audio element -->
+    <audio id="myAudio" loop>
+      <source src="1.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>
+  <script>
+    const playButton = document.getElementById('playButton');
+    const playOverlay = document.getElementById('playOverlay');
+    const mainContent = document.getElementById('mainContent');
+    const audio = document.getElementById('myAudio');
+
+    playButton.addEventListener('click', () => {
+      // Play the audio
+      audio.play().catch(e => {
+        console.error('Audio play failed:', e);
+      });
+
+      // Remove blur and fade out the overlay
+      mainContent.classList.add('active');
+      playOverlay.classList.add('hidden');
+
+      // Optional: remove overlay from DOM after transition
+      setTimeout(() => {
+        playOverlay.style.display = 'none';
+      }, 600);
+    });
+
+    // Hearts game script (unchanged)
+    const gameArea = document.getElementById('game');
+    const scoreCount = document.getElementById('scoreCount');
+    const finalMessage = document.getElementById('finalMessage');
+    let score = 0;
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '❤️';
+      heart.style.setProperty('--random', Math.random());
+      heart.style.left = Math.random() * (gameArea.clientWidth - 30) + 'px';
+      heart.style.bottom = '0px';
+
+      heart.addEventListener('click', () => {
+        heart.remove();
+        score++;
+        scoreCount.innerText = score;
+        if (score >= 10) {
+          finalMessage.style.display = 'block';
+        }
+      });
+
+      gameArea.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 800);
+  </script>
+</body>
+</html>
